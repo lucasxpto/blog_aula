@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block titulo %} Meu Blog ==> Post {{ post.titulo }} {% endblock %}
+
+{% block conteudo %}
+<section data-bs-version="5.1" class="features16 cid-tzVjbxlXj9" id="features17-6">
+
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-5">
+                    <div class="image-wrapper">
+                        <img src="{{ post.imagem.thumb.url }}" alt="Imagem do post {{ post.titulo }}"
+                             width="438" height="438">
+                    </div>
+                </div>
+                <div class="col-12 col-lg">
+                    <div class="text-wrapper">
+                        <h6 class="card-title mbr-fonts-style display-5">
+                            <strong>{{ post.titulo }}</strong>
+                        </h6>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-4">
+                            {{ post.corpo }}
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

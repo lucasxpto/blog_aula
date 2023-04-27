@@ -35,9 +35,27 @@
                                 Enviar este post...
                             </a>
                         </h4>
+
                     </div>
                 </div>
             </div>
+            <p>
+                <a href="{% url 'comentar_post' post.id %}" class="btn btn-dark">Comentar post...</a>
+            </p>
+            <table class="table table-striped">
+                <tr>
+                    <th>Comentário de:</th>
+                    <th>Texto</th>
+                </tr>
+            {% for c in comentarios %}
+                <tr>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.texto }}</td>
+                </tr>
+            {% empty %}
+                <td colspan="2">O post ainda não possui comentários.</td>
+            {% endfor %}
+            </table>
         </div>
     </div>
 </section>

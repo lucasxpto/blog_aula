@@ -1,12 +1,14 @@
 from django.urls import path
-from .views import ListarPostsListView, IndexView, DetalhePostView, FormContatoView
+# from .views import ListarPostsListView, IndexView, DetalhePostView, FormContatoView
+from . import views
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='home'),
-    path('listar/', ListarPostsListView.as_view(), name='listar_posts'),
+    path('', views.IndexView.as_view(), name='home'),
+    path('listar/', views.ListarPostsListView.as_view(), name='listar_posts'),
     path('detalhe/<int:ano>/<int:mes>/<int:dia>/<slug:slug>',
-         DetalhePostView.as_view(), name='detalhe_post'),
+         views.DetalhePostView.as_view(), name='detalhe_post'),
     path('enviarpost/<int:pk>/',
-         FormContatoView.as_view(),
+         views.FormContatoView.as_view(),
          name='enviar_post'),
+    path('comentar/<int:pk>/', views.ComentarioCreateView.as_view(), name='comentar_post'),
 ]

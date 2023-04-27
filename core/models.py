@@ -40,3 +40,18 @@ class Post(models.Model):
     def __str__(self):
         return self.titulo
 
+
+class Comentario(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='comentarios')
+    nome = models.CharField('Nome', max_length=50)
+    email = models.EmailField('E-mail')
+    texto = models.TextField('Comentário')
+    criado = models.DateTimeField('Criado em', auto_now_add=True)
+    status = models.BooleanField('Ativo', default=False)
+
+    class Meta:
+        verbose_name = 'Comentário'
+        verbose_name_plural = 'Comentários'
+
+    def __str__(self):
+        return f'Comentário de {self.nome} em {self.criado}'

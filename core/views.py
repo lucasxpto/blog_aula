@@ -1,9 +1,14 @@
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LogoutView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, FormView, CreateView
 
-from core.forms import EmailForm, ComentModelForm
+from core.forms import EmailForm, ComentModelForm, CadUsuarioForm
 from core.models import Post, Comentario
 
 
@@ -90,5 +95,48 @@ class ComentarioCreateView(CreateView):
         context['post'] = self._get_post(self.kwargs['pk'])
         return context
 
+
+class CadUsuarioView(CreateView):
+    template_name = 'blog/usuarios/cadusuario.html'
+    form_class = CadUsuarioForm
+    success_url = reverse_lazy('loginuser')
+
+    def form_valid(self, form):
+        form.cleaned_data
+        form.save()
+        messages.success(self.request, 'Usuario Cadastrado!!!')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Usuário não cadastrado!!!')
+        return super().form_invalid(form)
+
+
+class LoginUsuarioView(FormView):
+    template_name = 'blog/usuarios/login.html'
+    model = User
+    form_class = AuthenticationForm
+    success_url = reverse_lazy('listar_posts')
+
+    def form_valid(self, form):
+        nome = form.cleaned_data['username']
+        senha = form.cleaned_data['password']
+        usuario = authenticate(self.request,username=nome, password=senha)
+        if usuario is not None:
+            login(self.request, usuario)
+            return redirect('listar_posts')
+        messages.error(self.request, 'Usuário inexistente.')
+        return redirect('loginuser')
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Não foi possível logar!')
+        return redirect('loginuser')
+
+
+class LogoutView(LoginRequiredMixin, LogoutView):
+
+    def get(self, request):
+        logout(request)
+        return redirect('listar_posts')
 
 

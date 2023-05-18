@@ -1,5 +1,5 @@
 """
-URL configuration for blogdomarcos project.
+URL configuration for blog project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/dev/topics/http/urls/
@@ -19,13 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from django.conf.urls.static import static
-from blogdomarcos import settings
+from blog import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-admin.site.site_header = 'Blog do Marcos'
-admin.site.site_title = 'Blog do Marcos'
+admin.site.site_header = 'Blog do Lucas'
+admin.site.site_title = 'Blog do Lucas'
 admin.site.index_title = 'Gerenciamento do Blog'

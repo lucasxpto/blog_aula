@@ -25,3 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'Blog do Marcos'
+admin.site.site_title = 'Blog do Marcos'
+admin.site.index_title = 'Gerenciamento do Blog'

@@ -78,7 +78,6 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
     form_class = ComentModelForm
     login_url = 'loginuser'
 
-
     def _get_post(self, id_post):
         try:
             post = Post.publicados.get(id=id_post)
